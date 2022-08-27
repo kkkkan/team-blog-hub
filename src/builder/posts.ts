@@ -1,7 +1,7 @@
 import fs from "fs-extra";
 import Parser from "rss-parser";
 import { members } from "../../members";
-import { PostItem, Member } from "../types";
+import { PostItem, Member, StaticUrls } from "../types";
 
 type FeedItem = {
   title: string;
@@ -53,8 +53,43 @@ async function getFeedItemsFromSources(sources: undefined | string[]) {
   return feedItems;
 }
 
+function getStaticFeedItem(staticUrls: undefined | StaticUrls[]) {
+  if (!staticUrls?.length) return [];
+  let feedItems: FeedItem[] = [];
+  for (const { title, contentSnippet, url, updateDate } of staticUrls) {
+    let isoDate;
+    let dateMiliSeconds;
+    if (updateDate?.length == 8) {
+      const year = updateDate.substring(0, 4);
+      const month = updateDate.substring(4, 6);
+      const day = updateDate.substring(6, 8);
+      const hour = "00";//updateDate.substring(8, 10);
+      const min = '00';//updateDate.substring(10, 12);
+      const sec = "00";//updateDate.substring(12, 14);
+
+      isoDate = isoDate = year + '-' + month + '-' + day + 'T' + hour + ':' + min + ':' + sec + '+09:00';
+      dateMiliSeconds = new Date(isoDate).getTime();
+    }
+
+    if (!isoDate || !dateMiliSeconds) {
+      // アップロード日時が記載されていない時 or パース出来ない無効な形式で日付が設定されていた時は今日にする
+      isoDate = new Date().toISOString();
+      dateMiliSeconds = new Date(isoDate).getTime();
+    }
+    const item = {
+      title,
+      link: url,
+      contentSnippet: contentSnippet?.replace(/\n/g, ""),
+      isoDate,
+      dateMiliSeconds,
+    } as FeedItem;
+    if (item) feedItems = [...feedItems, item];
+  }
+  return feedItems;
+}
+
 async function getMemberFeedItems(member: Member): Promise<PostItem[]> {
-  const { id, sources, name, includeUrlRegex, excludeUrlRegex } = member;
+  const { id, sources, name, includeUrlRegex, excludeUrlRegex, staticUrls } = member;
   const feedItems = await getFeedItemsFromSources(sources);
   if (!feedItems) return [];
 
@@ -78,6 +113,17 @@ async function getMemberFeedItems(member: Member): Promise<PostItem[]> {
     });
   }
 
+  let staticPostItem = getStaticFeedItem(staticUrls).map((item) => {
+    return {
+      ...item,
+      authorName: name,
+      authorId: id,
+    };
+  });
+
+  if (staticPostItem) {
+    return [...postItems, ...staticPostItem]
+  }
   return postItems;
 }
 
