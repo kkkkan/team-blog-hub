@@ -14,7 +14,7 @@ export type Member = {
 };
 export type StaticUrls = {
   title: string,
-  contentSnippet?: string;
+  contentSnippet?: string; // 現状表示にはどこにも使われていないっぽいけど一応設定できるようにしておく。
   url: string,
   updateDate?: string // アップデート日(日本時間)を入れてください。nullの場合はこのサイトのビルド日の扱いになります。 yyyyMMdd 例 : 2022年5月14日15時3分→"20220514"
 }

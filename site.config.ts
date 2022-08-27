@@ -1,12 +1,13 @@
 export const config = {
   siteMeta: {
-    title: "Team Blog Hub",
-    teamName: "catnose Inc.",
-    description: "RSS based blog starter kit for teams.",
+    title: "テックブログまとめ(工事中)",
+    teamName: "個人サイト Inc.",
+    description: "@catnose99 様の team-blog-hub (https://github.com/catnose99/team-blog-hub)をお借りして練習作成中のサイトです。"
+      + "まだ多くのところが元のteam-blog-hubのままです。",
   },
   siteRoot:
     process.env.NODE_ENV === "production"
-      ? "https://team-blog-hub.vercel.app"
+      ? "https://kkkkan-homepage-use-teamshub.web.app/"
       : "http://localhost:3000",
   headerLinks: [
     {
@@ -15,11 +16,11 @@ export const config = {
     },
     {
       title: "Company",
-      href: "https://zenn.dev/catnose99/articles/cb72a73368a547756862",
+      href: "/about",
     },
     {
       title: "GitHub",
-      href: "https://github.com/catnose99/team-blog-hub",
+      href: "https://github.com/kkkkan",
     },
   ],
 };

@@ -11,7 +11,10 @@ const Page: NextPage = () => {
         <section className="about">
           <h1 className="about__title">About</h1>
           <div className="about__body">
-            <p>
+            <p>工事中です。</p>
+
+
+            {/* <p>
               このサイトはチームのためのブログスターター
               <a href="https://github.com/catnose99/team-blog-hub">
                 Team Blog Hub
@@ -27,7 +30,7 @@ const Page: NextPage = () => {
                 チーム個々人のテックブログをRSSで集約するサイトをNext.jsで作った
               </a>
               をご覧ください。
-            </p>
+            </p> */}
           </div>
           <div className="about__actions">
             <LinkBackHome />
