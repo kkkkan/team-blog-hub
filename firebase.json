@@ -1,0 +1,17 @@
+{
+  "hosting": {
+    "public": ".contents",
+    "site": "kkkkan-homepage-use-teamshub",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
