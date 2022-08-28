@@ -11,7 +11,7 @@ https://kkkkan-homepage-use-teamshub.web.app/
 
 
 ## 変更点
-- メンバーのプロフィールやRSSの登録を行うの為の型`Member`に、固定のURLを追加できるフィールドstaticUrls?: StaticUrls[];`を追加しました。RSS非対応のサイトでも手動で追加・差し込めます。
+- メンバーのプロフィールやRSSの登録を行うの為の型`Member`に、固定のURLを追加できるフィールド`staticUrls?: StaticUrls[];`を追加しました。RSS非対応のサイトでも手動で追加・差し込めます。
   
  `Member` 定義`と`StaticUrls` 定義 (`src/types.ts`)
  
